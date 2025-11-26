@@ -1,120 +1,75 @@
-# Heart Disease Prediction System
+# Heart Disease Prediction App ❤️
 
-A machine learning application for predicting heart disease risk based on health data using Logistic Regression and Decision Tree classifiers.
+A machine learning-based web application to predict the risk of heart disease using key patient health metrics. The project is built with **Python, scikit-learn, and Streamlit** and allows users to enter important factors to estimate heart disease risk.
 
-## Features
+---
 
-- **Data Cleaning**: Handles missing values and duplicates
-- **Exploratory Data Analysis (EDA)**: Comprehensive visualizations and statistical analysis
-- **Model Training**: Logistic Regression and Decision Tree classifiers
-- **Model Evaluation**: Accuracy, ROC-AUC, and Confusion Matrix metrics
-- **Feature Importance**: Analysis of important features affecting predictions
-- **Streamlit UI**: Interactive web application for predictions and analysis
+## Project Objective
 
-## Installation
+The goal of this project is to build a **binary classification model** that predicts whether a patient has heart disease based on their health data, such as age, chest pain type, maximum heart rate, ST depression, and exercise-induced angina.
 
-1. Clone or download this repository
-2. Install required dependencies:
-
-```bash
-pip install -r requirements.txt
-```
+---
 
 ## Dataset
 
-Place the Heart Disease UCI dataset file as `heart.csv` in the project root directory. The dataset is available on [Kaggle](https://www.kaggle.com/datasets/ronitf/heart-disease-uci).
+- **Source:** UCI Heart Disease Dataset (available on [Kaggle](https://www.kaggle.com/datasets/redwankarimsony/heart-disease-data))
+- **Features include:** 
+  - Age, Sex, Chest Pain Type, Resting Blood Pressure, Cholesterol, Fasting Blood Sugar, Resting ECG, Max Heart Rate, Exercise-Induced Angina, ST Depression, Slope, Number of Major Vessels, Thalassemia
+- **Target:** Presence of heart disease (`has_disease` 0 = No, 1 = Yes)
 
-## Usage
+---
 
-### 1. Train the Models
+## Data Preparation
 
-Run the training script to clean data, perform EDA, train models, and generate evaluation metrics:
+- Handled missing values for numeric and categorical columns
+- Converted boolean columns (`fbs`, `exang`) to integers
+- Created a **binary target variable** from original numeric labels
+- Standardized numeric features and applied **one-hot encoding** to categorical features
 
-```bash
-python heart_disease_model.py
-```
+---
 
-This will:
-- Load and clean the dataset
-- Perform exploratory data analysis
-- Train Logistic Regression and Decision Tree models
-- Evaluate models and generate metrics
-- Save models and visualizations
+## Exploratory Data Analysis (EDA)
 
-### 2. Launch the Streamlit UI
+- Visualized **target distribution** and **age distribution** by heart disease
+- Analyzed **proportion of heart disease by chest pain type**
+- Created a **correlation heatmap** for numeric features
+- Count plots for categorical features like sex
 
-Start the interactive web application:
+---
 
-```bash
+## Models Used
+
+1. **Logistic Regression**
+   - Evaluated with **accuracy, confusion matrix, classification report, ROC-AUC**
+   - Feature importance analyzed using model coefficients
+
+2. **Decision Tree Classifier**
+   - Evaluated similarly
+   - Provides insight into non-linear patterns
+
+**ROC Curve Comparison** shows Logistic Regression has superior AUC and is the recommended model.
+
+---
+
+## Feature Importance
+
+- Top factors affecting heart disease prediction:
+  1. Chest Pain Type (`cp`)
+  2. Max Heart Rate Achieved (`thalch`)
+  3. ST Depression (`oldpeak`)
+  4. Exercise-Induced Angina (`exang`)
+  5. Age
+
+---
+
+## Deployment
+
+- The trained Logistic Regression model is saved as `heart_disease_model.pkl`
+- Web UI built using **Streamlit**:
+  - Users input the **most important factors**
+  - Predicts probability of heart disease
+  - Modern UI with **colored risk indicators**
+  
+**Run the app:**
+
 streamlit run app.py
-```
-
-The application will open in your browser with the following pages:
-
-- **Home**: Overview and instructions
-- **Data Overview**: Dataset statistics and information
-- **EDA**: Interactive exploratory data analysis
-- **Model Prediction**: Make predictions for new patients
-- **Model Evaluation**: View model performance metrics
-
-## Project Structure
-
-```
-.
-├── heart.csv                    # Dataset file (you need to add this)
-├── heart_disease_model.py      # Main training and evaluation script
-├── app.py                      # Streamlit UI application
-├── requirements.txt            # Python dependencies
-├── README.md                   # This file
-├── models/                     # Saved models (created after training)
-│   ├── logistic_regression.pkl
-│   ├── decision_tree.pkl
-│   └── scaler.pkl
-└── plots/                      # Generated visualizations (created after training)
-    ├── target_distribution.png
-    ├── correlation_heatmap.png
-    ├── feature_distributions.png
-    ├── roc_curves.png
-    ├── confusion_matrix_logistic_regression.png
-    ├── confusion_matrix_decision_tree.png
-    └── feature_importance.png
-```
-
-## Model Evaluation Metrics
-
-The system evaluates models using:
-
-- **Accuracy**: Overall prediction accuracy
-- **ROC-AUC Score**: Area under the ROC curve
-- **Confusion Matrix**: True/False positives and negatives
-- **Feature Importance**: Key features affecting predictions
-
-## Features Analyzed
-
-Common features in the heart disease dataset include:
-
-- Age
-- Sex
-- Chest Pain Type
-- Resting Blood Pressure
-- Serum Cholesterol
-- Fasting Blood Sugar
-- Resting ECG
-- Maximum Heart Rate
-- Exercise Induced Angina
-- ST Depression
-- Slope of Peak Exercise ST
-- Number of Major Vessels
-- Thalassemia
-
-## Notes
-
-- Ensure the dataset file is named `heart.csv` and placed in the project root
-- Run the training script before using the Streamlit app for predictions
-- The models are saved automatically after training
-- All visualizations are saved in the `plots/` directory
-
-## License
-
-This project is for educational purposes.
-
